@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //your jQuery code goes here
+			$( function() {
+				var slideIndex = 0;
+				var array = $(".Dog");
+				var type = "Dog";
+				var timer = 4000;
+				var check = true;
+    
+				carousel();
+  
+				function carousel() {
+
+					var i;
+					var x = array;
+      
+					if(check == true){
+						if(type == "Dog"){
+						$(".catHolder").hide();
+						$(".sceneHolder").hide();
+						$(".dogHolder").show();
+					}
+					else if(type == "Cat"){
+						$(".dogHolder").hide();
+						$(".sceneHolder").hide();
+						$(".catHolder").show();
+					}		
+					else if(type == "Scene"){
+						$(".dogHolder").hide();
+						$(".catHolder").hide();
+						$(".sceneHolder").show();
+					}
+    
+					if (slideIndex >= x.length) {slideIndex = 1} 
+				
+					for (i = 0; i < x.length; i++) {
+						x[i].style.display = "none";  
+					}
+    
+					slideIndex++;
+        
+					x[slideIndex-1].style.display = "block";  
+					setTimeout(carousel, timer); // Change image every 5 seconds
+				}
+			}
+  
+		$("#selectedCategory").click(function() {
+	
+		y = $("#category").val();
+		if(y == "Dog"){
+			$(".catHolder").hide();
+			$(".sceneHolder").hide();
+			$(".dogHolder").show();
+			array = $(".Dog");
+			type = "Dog";
+		} // end if
+		else if(y == "Cat") {
+			$(".dogHolder").hide();
+			$(".sceneHolder").hide();
+			$(".catHolder").show();
+			array = $(".Cat");
+			type = "Cat";
+		} // end else if
+		else if(y == "Scene") {
+			$(".dogHolder").hide();
+			$(".catHolder").hide();
+			$(".sceneHolder").show();
+			array = $(".Scene");
+			type = "Scene";
+		} // end else if
+      
+		showDivs(slideIndex); 
+		$("div").refresh();
+	});  // end click
+  
+    $("#lbh").click(function() {
+		plusDivs(-1);
+    });
+  
+	$("#pbh").click( function() {
+		check = false;   
+	});
+  
+	$("#sbh").click(function() {
+		if(check == false){
+			check = true;
+			carousel();
+		}
+	});
+  
+	$("#rbh").click(function() {
+		plusDivs(1);
+	});
+  
+	function plusDivs(n) {
+		showDivs(slideIndex += n);
+	}
+  
+	function showDivs(n) {
+		var i;
+		var z = $("#category").val();
+		var x = $( "."+z);
+    
+		if (n > x.length) {
+			slideIndex = 1; 
+		}    
+		
+		if (n < 1) {slideIndex = x.length}
+    
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+		} // end for
+    
+		x[slideIndex-1].style.display = "block";  
+	}// end showDivs(n)
+}); // end main function
+
+
+
+
+
+        });
+    </script>
+    
+    <style type="text/css">
+        /* your local CSS styles go here */
+		body{
+			background-image: url("http://www.publicdomainpictures.net/pictures/110000/velka/abstract-floral-background.jpg");
+			text-align: center;
+			padding-left: 80px;
+			padding-right: 80px;
+		}
+
+		h1{
+		  color: #1a0123;
+		  font-size: 50pt;
+		  font-family: "Comic Sans MS";
+		  text-align: center;
+		}
+
+		img{
+		  border: dotted 6px;
+		  padding: 5px;
+		  border-color: #08125b;
+		  max-height: 480px;
+		  max-width: 650px;
+		  margin: auto;
+		}
+
+		div.catHolder{
+		  border: dotted 10px;
+		  padding: 80px;
+		  border-color: #0a1f4c;
+		  background-color: #effffa;
+		  margin: 20px;
+		}
+
+		div.sceneHolder{
+		  border: dotted 10px;
+		  padding: 80px;
+		  border-color: #0a1f4c;
+		  background-color: #effffa;
+		  margin: 20px;
+		}
+
+		div.dogHolder{
+		  border: dotted 10px;
+		  padding: 80px;
+		  border-color: #0a1f4c;
+		  background-color: #effffa;
+		  margin: 20px;
+		}
+
+		fieldset{
+		  border-style: none;
+		}
+
+		div.Menu{
+		  font-size: 18pt;
+		  font-weight: bolder;
+		  text-align: center;
+		  font-family: "Comic Sans MS";
+		  color: #370047;
+		  border-style: groove;
+		  margin-left: 200px;
+		  margin-right: 200px;  
+		  margin-bottom: 20px;
+		  margin-top: 20px;
+		}
+
+		select{
+		  font-size: 16pt;
+		  font-weight: bold;
+		  font-family: "Comic Sans MS";
+		  color: #250030;
+		  padding: 5px;
+		}
+
+		#selectedCategory{
+		  font-size: 14pt;
+		  font-weight: bold;
+		  font-family: "Comic Sans MS";
+		  color: #250030;
+		  padding: 7px;
+		  margin-left: 30px;
+		  background-color: #a3deff;
+		}
+
+		.Btn{
+		  font-size: 24pt;
+		  display: inline-block;
+		  margin: 5px;
+		  background-color: #a3deff;
+		}
+    </style>
+</head>
+
+<body>
+<!-- your HTML code goes here -->
+<h1> Photo Slideshow </h1>
+ 
+<div class="Menu">
+<form action="#">
+  <fieldset>
+    <label for="category">Select a category:</label>
+    <select name="category" id="category">
+      <option value="Dog" selected="selected">Dog</option>
+      <option value="Cat">Cat</option>
+      <option value="Scene">Scenery</option>
+    </select>
+  
+    <button type="button" id="selectedCategory">Show Category</button>
+  </fieldset>
+</form>
+</div> 
+
+<p id="test"></p>
+
+<div class="arrows">
+  <button class="Btn" id="lbh">&#10094;</button>
+  <button class="Btn" id="pbh">&#9646;</button>
+  <button class="Btn" id="sbh">&#9654;</button>
+  <button class="Btn" id="rbh">&#10095;</button>
+  
+</div>
+
+<div class= "holder" id="SlideshowHolder">
+  <div class = "dogHolder">
+  <img class="Dog" src="https://c.pxhere.com/photos/b6/e6/photo-155652.jpg!d"</img>
+  <img class="Dog" src="https://images.pexels.com/photos/163685/dog-puppy-yorkshire-terrier-yorkshire-terrier-puppy-163685.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Dog" src="https://images.pexels.com/photos/68798/pexels-photo-68798.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Dog" src="https://images.pexels.com/photos/247997/pexels-photo-247997.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Dog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Rottweiler_puppy_face.jpg/670px-Rottweiler_puppy_face.jpg"</img>
+  </div> <!-- end dogHolder -->
+  
+  <div class="catHolder">
+  <img class="Cat" src="https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Cat" src="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" </img>
+  <img class="Cat" src="https://images.pexels.com/photos/358464/pexels-photo-358464.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" </img>
+  <img class="Cat" src="https://images.pexels.com/photos/290164/pexels-photo-290164.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Cat" src="https://images.pexels.com/photos/236230/pexels-photo-236230.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  </div> <!-- end catHolder -->
+  
+  <div class="sceneHolder">
+  <img class="Scene" src="https://images.pexels.com/photos/240040/pexels-photo-240040.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Scene" src="https://static.pexels.com/photos/490411/pexels-photo-490411.jpeg"</img>
+  <img class="Scene" src="https://images.pexels.com/photos/33582/sunrise-phu-quoc-island-ocean.jpg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Scene" src="https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  <img class="Scene" src="https://images.pexels.com/photos/54539/pexels-photo-54539.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"</img>
+  </div> <!-- end catHolder -->
+</div> <!-- end holder -->
+</body>
+</html>
